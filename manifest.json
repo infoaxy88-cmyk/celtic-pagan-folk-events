@@ -1,0 +1,15 @@
+{
+  "name": "Calendario eventi Celtic Pagan Folk",
+  "short_name": "Celtic Pagan Folk",
+  "description": "Calendario di festival celtici, pagani e folk.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f5f4",
+  "theme_color": "#0f5c4d",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f5c4d">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Celtic Pagan Folk">
 <title>Calendario eventi Celtic Pagan Folk</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
@@ -153,11 +159,24 @@ dl.info dd { margin: 0; overflow-wrap: anywhere; }
 .links small { display: block; color: var(--muted); font-weight: 400; }
 footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
 @media (prefers-reduced-motion: no-preference) { .card, .chip, .seg button { transition: border-color .15s, background-color .15s; } }
+
+.install { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: var(--accent); color: var(--accent-fg); border-radius: 10px; padding: 10px 14px; margin-top: 16px; }
+.install p { margin: 0; flex: 1 1 180px; font-size: 14px; }
+.install button { background: var(--accent-fg); color: var(--accent); border: 0; border-radius: 8px; padding: 8px 14px; font-weight: 600; }
+.install .x { background: transparent; color: inherit; font-size: 22px; line-height: 1; padding: 4px 10px; }
+.install .help { flex-basis: 100%; font-weight: 500; }
 </style>
 </head>
 <body>
 
 <div class="wrap">
+  <div class="install" id="install" hidden>
+    <p>Aggiungi il calendario alla schermata Home e aprilo come un'app.</p>
+    <button type="button" id="install-btn">Installa come app</button>
+    <button type="button" class="x" id="install-x" aria-label="Chiudi">×</button>
+    <p class="help" id="install-help" hidden></p>
+  </div>
+
   <header class="top">
     <div>
       <h1 class="brand">Calendario eventi <span>Celtic Pagan Folk</span></h1>
@@ -464,6 +483,32 @@ $("reset").addEventListener("click", function () {
   render();
 })();
 </script>
+<script>
+(function () {
+  var $i = function (id) { return document.getElementById(id); };
+  if ("serviceWorker" in navigator && location.protocol === "https:") {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
+  var ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var mobile = ios || /Android/i.test(ua);
+  var standalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  if (!mobile || standalone) return;
+  var box = $i("install"), btn = $i("install-btn"), help = $i("install-help"), deferred = null;
+  box.hidden = false;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; });
+  window.addEventListener("appinstalled", function () { box.hidden = true; });
+  btn.addEventListener("click", function () {
+    if (deferred) { deferred.prompt(); deferred.userChoice.then(function () { deferred = null; }); return; }
+    help.textContent = ios
+      ? "Su iPhone e iPad apri la pagina in Safari, tocca il pulsante Condividi (il quadrato con la freccia) e scegli \u00abAggiungi alla schermata Home\u00bb."
+      : "Apri il menu del browser (i tre puntini) e scegli \u00abInstalla app\u00bb oppure \u00abAggiungi a schermata Home\u00bb.";
+    help.hidden = false;
+  });
+  $i("install-x").addEventListener("click", function () { box.hidden = true; });
+})();
+</script>
+
 
 </body>
 </html>
