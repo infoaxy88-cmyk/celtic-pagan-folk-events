@@ -1,0 +1,422 @@
+<title>Calendario eventi Celtic Pagan Folk</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: testata compatta, pannello filtri, vista Elenco (per mese) o Mese (griglia + elenco del mese), scheda evento in finestra sovrapposta. */
+:root {
+  --bg: #f2f5f4;
+  --surface: #ffffff;
+  --fg: #14201f;
+  --muted: #55645f;
+  --line: #d5dedb;
+  --accent: #0f5c4d;
+  --accent-fg: #ffffff;
+  --accent-soft: #dcefe9;
+  --warn: #8a3b05;
+  --warn-soft: #fde9d3;
+  --bad: #9b1c1c;
+  --bad-soft: #fbe0e0;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1615; --surface: #162221; --fg: #e6efec; --muted: #9db0aa; --line: #2a3b38;
+    --accent: #5fc9ae; --accent-fg: #0b1412; --accent-soft: #1b3a34;
+    --warn: #f4b27a; --warn-soft: #3d2a17; --bad: #f4a3a3; --bad-soft: #3d1c1c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1615; --surface: #162221; --fg: #e6efec; --muted: #9db0aa; --line: #2a3b38;
+  --accent: #5fc9ae; --accent-fg: #0b1412; --accent-soft: #1b3a34;
+  --warn: #f4b27a; --warn-soft: #3d2a17; --bad: #f4a3a3; --bad-soft: #3d1c1c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-block: 0 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 920px; margin: 0 auto; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+header.top { padding-block: 28px 18px; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 5.5vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0; }
+.brand span { color: var(--accent); }
+.tagline { margin: 6px 0 0; color: var(--muted); max-width: 40ch; text-wrap: balance; }
+.proto { font-size: 12px; background: var(--warn-soft); color: var(--warn); padding: 6px 10px; border-radius: 6px; max-width: 34ch; }
+
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 8px 16px; font-weight: 500; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+.count { color: var(--muted); font-size: 14px; }
+
+details.filters { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 20px; }
+details.filters > summary { list-style: none; cursor: pointer; padding: 12px 14px; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; }
+details.filters > summary::-webkit-details-marker { display: none; }
+details.filters > summary .badge-n { background: var(--accent); color: var(--accent-fg); border-radius: 99px; padding: 0 8px; font-size: 12px; line-height: 20px; margin-left: 8px; }
+.filter-body { padding: 4px 14px 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field label { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.field select, .field input { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; width: 100%; min-width: 0; }
+.field.wide { grid-column: 1 / -1; }
+.quick { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: var(--bg); border-radius: 99px; padding: 5px 12px; font-size: 13px; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.reset { grid-column: 1 / -1; justify-self: start; background: transparent; border: 0; color: var(--accent); text-decoration: underline; padding: 0; font-size: 14px; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+
+h2.month { font-family: var(--font-display); font-size: 1.25rem; margin: 26px 0 10px; text-transform: capitalize; display: flex; align-items: baseline; gap: 10px; }
+h2.month small { font-family: var(--font-body); color: var(--muted); font-size: 13px; font-weight: 400; text-transform: none; }
+.list { display: flex; flex-direction: column; gap: 10px; }
+.card { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; text-align: left; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px 12px 12px; }
+.card:hover { border-color: var(--accent); }
+.card.soon { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
+.card.off .title { text-decoration: line-through; color: var(--muted); }
+.date { background: var(--accent-soft); color: var(--accent); border-radius: 8px; text-align: center; padding: 6px 4px; align-self: start; font-variant-numeric: tabular-nums; }
+.date .d { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; line-height: 1.1; display: block; }
+.date .m { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block; }
+.date .to { font-size: 11px; display: block; margin-top: 2px; opacity: 0.85; }
+.title { font-weight: 600; font-size: 1.05rem; margin: 0; overflow-wrap: anywhere; }
+.where { color: var(--muted); font-size: 14px; margin: 2px 0 8px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); }
+.tag.free { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 600; }
+.tag.soon { background: var(--accent); border-color: transparent; color: var(--accent-fg); font-weight: 600; }
+.tag.rinviato { background: var(--warn-soft); border-color: transparent; color: var(--warn); font-weight: 600; }
+.tag.annullato { background: var(--bad-soft); border-color: transparent; color: var(--bad); font-weight: 600; }
+.tag.past { background: var(--bg); }
+
+.notice { background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 10px 14px; margin: 0 0 8px; font-weight: 500; }
+.note { grid-column: 1 / -1; margin: 0; font-size: 13px; color: var(--muted); }
+.empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; padding: 28px 16px; text-align: center; color: var(--muted); }
+
+.monthnav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.monthnav h2 { margin: 0; font-family: var(--font-display); font-size: 1.4rem; text-transform: capitalize; }
+.nav { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 14px; font-size: 18px; line-height: 1.2; }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.dow { background: var(--bg); text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); padding: 6px 0; text-transform: uppercase; letter-spacing: 0.05em; }
+.cell { background: var(--surface); min-height: 92px; padding: 4px; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.cell.blank { background: var(--bg); }
+.cell .n { font-size: 12px; font-variant-numeric: tabular-nums; color: var(--muted); padding: 0 2px; }
+.cell.today .n { color: var(--accent-fg); background: var(--accent); border-radius: 99px; width: 22px; text-align: center; font-weight: 600; }
+.pill { border: 0; text-align: left; background: var(--accent-soft); color: var(--accent); border-radius: 4px; padding: 2px 5px; font-size: 12px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+.pill.rinviato { background: var(--warn-soft); color: var(--warn); }
+.pill.annullato { background: var(--bad-soft); color: var(--bad); text-decoration: line-through; }
+.more { font-size: 11px; color: var(--muted); padding-left: 2px; }
+@media (max-width: 640px) {
+  .cell { min-height: 46px; padding: 3px; }
+  .pill { font-size: 0; height: 6px; padding: 0; }
+  .more { display: none; }
+  .card { grid-template-columns: 56px minmax(0, 1fr); gap: 12px; }
+}
+
+.overlay { position: fixed; inset: 0; background: rgba(8, 14, 13, 0.6); display: flex; align-items: flex-end; justify-content: center; z-index: 50; padding: 0; }
+.sheet { background: var(--surface); width: 100%; max-width: 620px; max-height: 92vh; overflow-y: auto; border-radius: 14px 14px 0 0; padding: 20px max(18px, env(safe-area-inset-left, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px)); }
+@media (min-width: 700px) { .overlay { align-items: center; padding: 20px; } .sheet { border-radius: 14px; } }
+.sheet h3 { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.15; margin: 0 0 4px; overflow-wrap: anywhere; }
+.sheet .close { float: right; margin: 0 0 8px 8px; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 12px; }
+.banner { padding: 10px 12px; border-radius: 8px; margin: 12px 0; font-weight: 500; }
+.banner.rinviato { background: var(--warn-soft); color: var(--warn); }
+.banner.annullato { background: var(--bad-soft); color: var(--bad); }
+dl.info { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 16px; margin: 16px 0; }
+dl.info dt { color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+dl.info dd { margin: 0; overflow-wrap: anywhere; }
+.links { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.links a { display: block; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; color: var(--accent); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+.links a:hover { border-color: var(--accent); }
+.links small { display: block; color: var(--muted); font-weight: 400; }
+footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
+@media (prefers-reduced-motion: no-preference) { .card, .chip, .seg button { transition: border-color .15s, background-color .15s; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 class="brand">Calendario eventi <span>Celtic Pagan Folk</span></h1>
+      <p class="tagline">Festival celtici, vichinghi e di cultura storica in un unico calendario.</p>
+    </div>
+    <p class="proto">Dati raccolti dai siti degli organizzatori e da portali di eventi. Controlla sempre le date sulla pagina ufficiale.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Tipo di vista">
+      <button type="button" id="v-list" aria-pressed="true">Elenco</button>
+      <button type="button" id="v-month" aria-pressed="false">Mese</button>
+    </div>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+
+  <details class="filters" id="filters">
+    <summary><span>Filtri <span class="badge-n" id="nfilters" hidden></span></span><span aria-hidden="true">▾</span></summary>
+    <div class="filter-body">
+      <div class="field wide" id="period-box">
+        <label>Periodo</label>
+        <div class="quick" id="quick">
+          <button type="button" class="chip" data-q="all" aria-pressed="true">Tutti i prossimi</button>
+          <button type="button" class="chip" data-q="week" aria-pressed="false">Prossimi 7 giorni</button>
+          <button type="button" class="chip" data-q="30" aria-pressed="false">Prossimi 30 giorni</button>
+          <button type="button" class="chip" data-q="month" aria-pressed="false">Questo mese</button>
+        </div>
+      </div>
+      <div class="field" id="from-box"><label for="f-from">Dal</label><input type="date" id="f-from"></div>
+      <div class="field" id="to-box"><label for="f-to">Al</label><input type="date" id="f-to"></div>
+      <div class="field"><label for="f-region">Area geografica</label><select id="f-region"><option value="">Tutte le regioni</option></select></div>
+      <div class="field"><label for="f-price">Ingresso</label><select id="f-price"><option value="">Indifferente</option><option value="si">Gratuito</option><option value="no">A pagamento</option></select></div>
+      <div class="field"><label for="f-camp">Campeggio</label><select id="f-camp"><option value="">Indifferente</option><option value="si">Con campeggio</option><option value="no">Senza campeggio</option></select></div>
+      <div class="field"><label for="f-food">Food e servizi</label><select id="f-food"><option value="">Indifferente</option><option value="si">Con food e servizi</option><option value="no">Senza food e servizi</option></select></div>
+      <label class="check field wide" style="flex-direction:row"><input type="checkbox" id="f-past" style="width:auto"> Mostra anche gli eventi passati (archivio)</label>
+      <p class="note">Con un filtro su ingresso, campeggio o food e servizi, gli eventi che non indicano quel dato non compaiono.</p>
+      <button type="button" class="reset" id="reset">Azzera i filtri</button>
+    </div>
+  </details>
+
+  <p class="notice" id="notice" hidden>Gli organizzatori non hanno ancora annunciato le prossime edizioni. Sono mostrate le edizioni 2026, già concluse.</p>
+
+  <main id="view"></main>
+
+  <footer>Consultazione libera, senza registrazione. Dove un dato non è indicato dall'organizzatore, la scheda riporta "Non indicato". Prototipo: la pagina Facebook del Ragnarök non è stata consultabile in automatico.</footer>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dlg-title" id="sheet"></div>
+</div>
+
+<script>
+var EVENTS = [
+  { id: 4, name: "Beltane Pagan Festival (XXVIII edizione)", start: "2026-05-29", end: "2026-05-31", city: "Masserano", region: "Piemonte", address: "Parco Arcobaleno", desc: "Festa celtica e neopagana in un parco naturale: concerti di cornamusa e tamburi fino a notte fonda, conferenze, mostra tematica e area food con menu anche vegetariano, vegano e senza glutine. Biglietti solo alla biglietteria all'ingresso del parco, senza prevendita. Posto tenda per chi si ferma a dormire, senza luce né acqua corrente. Secondo gli organizzatori, l'edizione 2026 si è svolta in forma ridotta, con un massimo di 200 persone nell'area pubblica, perché l'autorizzazione allo spettacolo è stata negata dal comune.", free: false, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://beltanefestival.it/it" }, { label: "Programma 2026", url: "https://beltanefestival.it/it/programma/2026" }, { label: "Domande frequenti", url: "https://beltanefestival.it/it/faq" }, { label: "Pagina Facebook", url: "https://www.facebook.com/Festadibeltane/" }, { label: "Pagina Instagram", url: "https://www.instagram.com/beltane_paganfestival/" }] },
+  { id: 1, name: "Strigarium - Il Grande Sabba (XIV edizione)", start: "2026-06-12", end: "2026-06-14", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Manifestazione dedicata alle antiche tradizioni, ai culti e ai rituali, con conferenze, seminari, laboratori e concerti. Nell'area della festa ci sono il mercatino, l'area food e l'area divinazione.", free: null, price: "", camp: null, food: true, links: [{ label: "Sito ufficiale", url: "https://www.strigarium.it/" }] },
+  { id: 2, name: "Montelago Celtic Festival (XXIII edizione)", start: "2026-08-05", end: "2026-08-08", city: "Serravalle di Chienti", region: "Marche", address: "Altopiano di Colfiorito (uscita autostradale di Colfiorito)", desc: "Quattro giorni all'aperto di cultura celtica e folk: musica e balfolk, accademie, giochi celtici e Highland Games, attività outdoor e la Battaglia degli Eserciti. Mercato dell'artigianato e punti di ristoro. Biglietti esauriti per questa edizione.", free: false, price: "", camp: null, food: true, links: [{ label: "Sito ufficiale", url: "https://www.montelagocelticfestival.it/" }, { label: "Programma", url: "https://www.montelagocelticfestival.it/pages/programma" }, { label: "Biglietti", url: "https://www.montelagocelticfestival.it/pages/biglietti" }, { label: "Come arrivare", url: "https://www.montelagocelticfestival.it/pages/come-arrivare" }, { label: "Pagina Facebook", url: "https://www.facebook.com/montelagocelticfestival" }] },
+  { id: 3, name: "Ragnarök Viking Fest", start: "2026-09-25", end: "2026-09-27", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Festival vichingo internazionale: rievocazioni storiche e battaglie, musica dal Nordic folk al dark folk, conferenze su mitologia e vita quotidiana norrena, mercato tematico e area food con birra artigianale.", free: null, price: "", camp: null, food: true, links: [{ label: "Pagina Facebook", url: "https://www.facebook.com/RAGNAROKVIKINGFEST" }, { label: "Scheda su Brescia Eventi", url: "https://bresciaeventi.com/evento/ragnarok-viking-fest-festa-celtica/" }] }
+];
+
+function pd(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+var now = new Date();
+var TODAY = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+var DAY = 86400000;
+function daysBetween(a, b) { return Math.round((b - a) / DAY); }
+var fmtDay = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+var fmtShort = new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "short" });
+var fmtMonth = new Intl.DateTimeFormat("it-IT", { month: "long", year: "numeric" });
+var fmtMon3 = new Intl.DateTimeFormat("it-IT", { month: "short" });
+
+EVENTS.forEach(function (e) {
+  e.s = pd(e.start); e.e = pd(e.end);
+  e.status = e.status || "ok";
+  if (e.newStart) { e.ns = pd(e.newStart); e.ne = pd(e.newEnd); }
+  // data effettiva di riferimento: la nuova data se l'evento è rinviato
+  e.rs = e.ns || e.s; e.re = e.ne || e.e;
+});
+
+var NO_UPCOMING = !EVENTS.some(function (e) { return e.status === "ok" && e.re >= TODAY; });
+var state = { view: "list", quick: "all", from: "", to: "", region: "", price: "", camp: "", food: "", past: NO_UPCOMING, month: (function () { var d = NO_UPCOMING ? EVENTS[EVENTS.length - 1].rs : TODAY; return new Date(d.getFullYear(), d.getMonth(), 1); })() };
+var $ = function (id) { return document.getElementById(id); };
+var lastFocus = null;
+
+function matches(e, ignorePeriod) {
+  if (state.region && e.region !== state.region) return false;
+  if (state.price && e.free !== (state.price === "si")) return false;
+  if (state.camp && e.camp !== (state.camp === "si")) return false;
+  if (state.food && e.food !== (state.food === "si")) return false;
+  if (!ignorePeriod) {
+    if (!state.past && e.re < TODAY) return false;
+    if (state.from && e.re < pd(state.from)) return false;
+    if (state.to && e.rs > pd(state.to)) return false;
+  }
+  return true;
+}
+
+function dateText(s, e) {
+  if (s.getTime() === e.getTime()) return fmtDay.format(s);
+  return "Dal " + fmtShort.format(s) + " al " + fmtShort.format(e) + " " + e.getFullYear();
+}
+function durText(e) {
+  var n = daysBetween(e.rs, e.re) + 1;
+  return n === 1 ? "1 giorno" : n + " giorni";
+}
+function priceText(e) { if (e.free === null) return "Non indicato"; return e.free ? "Ingresso gratuito" : "A pagamento" + (e.price ? " (" + e.price + ")" : ""); }
+
+function tagsFor(e) {
+  var t = [];
+  var days = daysBetween(TODAY, e.rs);
+  if (e.status === "annullato") t.push('<span class="tag annullato">Annullato</span>');
+  else if (e.status === "rinviato") t.push('<span class="tag rinviato">Rinviato</span>');
+  else if (e.re < TODAY) t.push('<span class="tag past">Concluso</span>');
+  else if (days >= 0 && days <= 14) t.push('<span class="tag soon">' + (days === 0 ? "Oggi" : days === 1 ? "Domani" : "Tra " + days + " giorni") + "</span>");
+  else if (days < 0) t.push('<span class="tag soon">In corso</span>');
+  if (e.free === true) t.push('<span class="tag free">Gratuito</span>');
+  else if (e.free === false) t.push('<span class="tag">' + esc(e.price || "A pagamento") + "</span>");
+  if (e.camp) t.push('<span class="tag">Campeggio</span>');
+  if (e.food) t.push('<span class="tag">Food e servizi</span>');
+  return t.join("");
+}
+
+function cardHtml(e) {
+  var soon = e.status === "ok" && e.re >= TODAY && daysBetween(TODAY, e.rs) <= 14;
+  var off = e.status === "annullato";
+  var multi = e.rs.getTime() !== e.re.getTime();
+  return '<button type="button" class="card' + (soon ? " soon" : "") + (off ? " off" : "") + '" data-id="' + e.id + '">' +
+    '<span class="date"><span class="d">' + e.rs.getDate() + '</span><span class="m">' + esc(fmtMon3.format(e.rs).replace(".", "")) + "</span>" +
+    (multi ? '<span class="to">→ ' + e.re.getDate() + " " + esc(fmtMon3.format(e.re).replace(".", "")) + "</span>" : "") + "</span>" +
+    '<span><h3 class="title" style="font-size:1.05rem">' + esc(e.name) + '</h3><p class="where">' + esc(e.city) + ", " + esc(e.region) + '</p><span class="tags">' + tagsFor(e) + "</span></span></button>";
+}
+
+function renderList() {
+  var items = EVENTS.filter(function (e) { return matches(e, false); }).sort(function (a, b) { return a.rs - b.rs; });
+  $("count").textContent = items.length === 1 ? "1 evento" : items.length + " eventi";
+  if (!items.length) return '<div class="empty">Nessun evento corrisponde ai filtri scelti.<br>Prova ad allargare il periodo o ad azzerare i filtri.</div>';
+  var out = "", cur = "";
+  items.forEach(function (e) {
+    var key = e.rs.getFullYear() + "-" + e.rs.getMonth();
+    if (key !== cur) {
+      if (cur) out += "</div>";
+      cur = key;
+      var n = items.filter(function (x) { return x.rs.getFullYear() + "-" + x.rs.getMonth() === key; }).length;
+      out += '<h2 class="month">' + esc(fmtMonth.format(e.rs)) + "<small>" + n + (n === 1 ? " evento" : " eventi") + '</small></h2><div class="list">';
+    }
+    out += cardHtml(e);
+  });
+  return out + "</div>";
+}
+
+function renderMonth() {
+  var y = state.month.getFullYear(), m = state.month.getMonth();
+  var first = new Date(y, m, 1), last = new Date(y, m + 1, 0);
+  var lead = (first.getDay() + 6) % 7;
+  var all = EVENTS.filter(function (e) { return matches(e, true); });
+  var html = '<div class="monthnav"><button type="button" class="nav" id="prev" aria-label="Mese precedente">‹</button><h2>' + esc(fmtMonth.format(first)) +
+    '</h2><button type="button" class="nav" id="next" aria-label="Mese successivo">›</button></div><div class="grid">';
+  ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"].forEach(function (d) { html += '<div class="dow">' + d + "</div>"; });
+  for (var i = 0; i < lead; i++) html += '<div class="cell blank"></div>';
+  for (var d = 1; d <= last.getDate(); d++) {
+    var day = new Date(y, m, d);
+    var ev = all.filter(function (e) { return e.rs <= day && e.re >= day; });
+    html += '<div class="cell' + (day.getTime() === TODAY.getTime() ? " today" : "") + '"><span class="n">' + d + "</span>";
+    ev.slice(0, 3).forEach(function (e) { html += '<button type="button" class="pill ' + e.status + '" data-id="' + e.id + '" title="' + esc(e.name) + '">' + esc(e.name) + "</button>"; });
+    if (ev.length > 3) html += '<span class="more">+' + (ev.length - 3) + "</span>";
+    html += "</div>";
+  }
+  var tail = (7 - ((lead + last.getDate()) % 7)) % 7;
+  for (var j = 0; j < tail; j++) html += '<div class="cell blank"></div>';
+  html += "</div>";
+  var inMonth = all.filter(function (e) { return e.rs <= last && e.re >= first; }).sort(function (a, b) { return a.rs - b.rs; });
+  $("count").textContent = inMonth.length === 1 ? "1 evento nel mese" : inMonth.length + " eventi nel mese";
+  html += '<h2 class="month">Eventi del mese</h2>';
+  html += inMonth.length ? '<div class="list">' + inMonth.map(cardHtml).join("") + "</div>" : '<div class="empty">Nessun evento in questo mese con i filtri scelti.</div>';
+  return html;
+}
+
+function updateBadge() {
+  var n = 0;
+  if (state.region) n++;
+  if (state.price) n++;
+  if (state.camp) n++;
+  if (state.food) n++;
+  if (state.view === "list" && (state.from || state.to || state.quick !== "all")) n++;
+  if (state.past && !NO_UPCOMING) n++;
+  var b = $("nfilters");
+  b.hidden = n === 0;
+  b.textContent = n;
+}
+
+function render() {
+  $("v-list").setAttribute("aria-pressed", state.view === "list");
+  $("v-month").setAttribute("aria-pressed", state.view === "month");
+  var isList = state.view === "list";
+  $("period-box").hidden = !isList; $("from-box").hidden = !isList; $("to-box").hidden = !isList;
+  document.querySelector(".check").hidden = !isList;
+  $("notice").hidden = !NO_UPCOMING;
+  $("view").innerHTML = isList ? renderList() : renderMonth();
+  Array.prototype.forEach.call(document.querySelectorAll("#quick .chip"), function (c) { c.setAttribute("aria-pressed", c.getAttribute("data-q") === state.quick); });
+  updateBadge();
+}
+
+function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function setQuick(q) {
+  state.quick = q;
+  var a = "", b = "";
+  if (q === "week") { a = iso(TODAY); b = iso(new Date(TODAY.getTime() + 7 * DAY)); }
+  if (q === "30") { a = iso(TODAY); b = iso(new Date(TODAY.getTime() + 30 * DAY)); }
+  if (q === "month") { a = iso(TODAY); b = iso(new Date(TODAY.getFullYear(), TODAY.getMonth() + 1, 0)); }
+  state.from = a; state.to = b;
+  $("f-from").value = a; $("f-to").value = b;
+}
+
+function openEvent(id, trigger) {
+  var e = EVENTS.filter(function (x) { return x.id === id; })[0];
+  if (!e) return;
+  lastFocus = trigger || document.activeElement;
+  var h = '<button type="button" class="close" id="close">Chiudi</button><h3 id="dlg-title">' + esc(e.name) + '</h3><div class="tags" style="margin-top:8px">' + tagsFor(e) + "</div>";
+  if (e.status === "annullato") h += '<div class="banner annullato">Evento annullato. ' + esc(e.note || "") + "</div>";
+  if (e.status === "rinviato") h += '<div class="banner rinviato">Evento rinviato. ' + esc(e.note || "") + " Nuova data: " + esc(dateText(e.ns, e.ne)) + ".</div>";
+  h += '<dl class="info"><dt>Data</dt><dd>' + (e.status === "rinviato" ? "<s>" + esc(dateText(e.s, e.e)) + "</s><br>" + esc(dateText(e.ns, e.ne)) : esc(dateText(e.s, e.e))) + "</dd>";
+  h += "<dt>Durata</dt><dd>" + esc(durText(e)) + "</dd>";
+  h += "<dt>Luogo</dt><dd>" + esc(e.city) + " (" + esc(e.region) + ")<br>" + esc(e.address) + "</dd>";
+  h += "<dt>Ingresso</dt><dd>" + esc(priceText(e)) + "</dd>";
+  h += "<dt>Campeggio</dt><dd>" + (e.camp === null ? "Non indicato" : e.camp ? "Sì" : "No") + "</dd>";
+  h += "<dt>Food e servizi</dt><dd>" + (e.food === null ? "Non indicato" : e.food ? "Sì" : "No") + "</dd></dl>";
+  h += "<p>" + esc(e.desc) + "</p>";
+  if (e.links && e.links.length) {
+    h += '<h4 style="margin:18px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">Per saperne di più</h4><ul class="links">';
+    e.links.forEach(function (l) {
+      var host = l.url.replace(/^https?:\/\//, "").split("/")[0];
+      h += '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + esc(l.label) + "<small>" + esc(host) + "</small></a></li>";
+    });
+    h += "</ul>";
+  }
+  $("sheet").innerHTML = h;
+  $("overlay").hidden = false;
+  $("close").focus();
+}
+function closeEvent() {
+  $("overlay").hidden = true;
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+}
+
+document.addEventListener("click", function (ev) {
+  var t = ev.target;
+  var card = t.closest && t.closest("[data-id]");
+  if (card) { openEvent(+card.getAttribute("data-id"), card); return; }
+  if (t.id === "close") { closeEvent(); return; }
+  if (t.id === "overlay") { closeEvent(); return; }
+  if (t.id === "prev") { state.month = new Date(state.month.getFullYear(), state.month.getMonth() - 1, 1); render(); return; }
+  if (t.id === "next") { state.month = new Date(state.month.getFullYear(), state.month.getMonth() + 1, 1); render(); return; }
+  var q = t.closest && t.closest("#quick .chip");
+  if (q) { setQuick(q.getAttribute("data-q")); render(); }
+});
+document.addEventListener("keydown", function (ev) {
+  if (ev.key === "Escape" && !$("overlay").hidden) closeEvent();
+});
+$("v-list").addEventListener("click", function () { state.view = "list"; render(); });
+$("v-month").addEventListener("click", function () { state.view = "month"; render(); });
+[["f-region", "region"], ["f-price", "price"], ["f-camp", "camp"], ["f-food", "food"]].forEach(function (p) {
+  $(p[0]).addEventListener("change", function (e) { state[p[1]] = e.target.value; render(); });
+});
+$("f-from").addEventListener("change", function (e) { state.from = e.target.value; state.quick = "custom"; render(); });
+$("f-to").addEventListener("change", function (e) { state.to = e.target.value; state.quick = "custom"; render(); });
+$("f-past").addEventListener("change", function (e) { state.past = e.target.checked; render(); });
+$("reset").addEventListener("click", function () {
+  state.region = state.price = state.camp = state.food = ""; state.past = NO_UPCOMING;
+  $("f-region").value = $("f-price").value = $("f-camp").value = $("f-food").value = ""; $("f-past").checked = NO_UPCOMING;
+  setQuick("all"); render();
+});
+
+(function init() {
+  var regs = {};
+  EVENTS.forEach(function (e) { regs[e.region] = 1; });
+  Object.keys(regs).sort().forEach(function (r) {
+    var o = document.createElement("option"); o.value = r; o.textContent = r; $("f-region").appendChild(o);
+  });
+  $("f-past").checked = state.past;
+  if (window.matchMedia("(min-width: 721px)").matches) $("filters").open = true;
+  render();
+})();
+</script>
