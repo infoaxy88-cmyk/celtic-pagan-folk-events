@@ -134,6 +134,10 @@ h2.month small { font-family: var(--font-body); color: var(--muted); font-size: 
 dl.info { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 16px; margin: 16px 0; }
 dl.info dt { color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
 dl.info dd { margin: 0; overflow-wrap: anywhere; }
+.prog { list-style: none; margin: 0 0 4px; padding: 0; display: grid; gap: 10px; }
+.prog li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px; }
+.prog b { color: var(--accent); font-variant-numeric: tabular-nums; }
+.prog span { overflow-wrap: anywhere; }
 .links { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .links a { display: block; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; color: var(--accent); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
 .links a:hover { border-color: var(--accent); }
@@ -171,6 +175,7 @@ footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
           <button type="button" class="chip" data-q="week" aria-pressed="false">Prossimi 7 giorni</button>
           <button type="button" class="chip" data-q="30" aria-pressed="false">Prossimi 30 giorni</button>
           <button type="button" class="chip" data-q="month" aria-pressed="false">Questo mese</button>
+          <button type="button" class="chip" data-q="everything" aria-pressed="false">Visualizza eventi passati</button>
         </div>
       </div>
       <div class="field" id="from-box"><label for="f-from">Dal</label><input type="date" id="f-from"></div>
@@ -178,9 +183,9 @@ footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
       <div class="field"><label for="f-region">Area geografica</label><select id="f-region"><option value="">Tutte le regioni</option></select></div>
       <div class="field"><label for="f-price">Ingresso</label><select id="f-price"><option value="">Indifferente</option><option value="si">Gratuito</option><option value="no">A pagamento</option></select></div>
       <div class="field"><label for="f-camp">Campeggio</label><select id="f-camp"><option value="">Indifferente</option><option value="si">Con campeggio</option><option value="no">Senza campeggio</option></select></div>
-      <div class="field"><label for="f-food">Food e servizi</label><select id="f-food"><option value="">Indifferente</option><option value="si">Con food e servizi</option><option value="no">Senza food e servizi</option></select></div>
+      <div class="field"><label for="f-food">Food</label><select id="f-food"><option value="">Indifferente</option><option value="si">Con food</option><option value="no">Senza food</option></select></div>
       <label class="check field wide" style="flex-direction:row"><input type="checkbox" id="f-past" style="width:auto"> Mostra anche gli eventi passati (archivio)</label>
-      <p class="note">Con un filtro su ingresso, campeggio o food e servizi, gli eventi che non indicano quel dato non compaiono.</p>
+      <p class="note">Con un filtro su ingresso, campeggio o food, gli eventi che non indicano quel dato non compaiono.</p>
       <button type="button" class="reset" id="reset">Azzera i filtri</button>
     </div>
   </details>
@@ -199,9 +204,10 @@ footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
 <script>
 var EVENTS = [
   { id: 4, name: "Beltane Pagan Festival (XXVIII edizione)", start: "2026-05-29", end: "2026-05-31", city: "Masserano", region: "Piemonte", address: "Parco Arcobaleno", desc: "Festa celtica e neopagana in un parco naturale: concerti di cornamusa e tamburi fino a notte fonda, conferenze, mostra tematica e area food con menu anche vegetariano, vegano e senza glutine. Biglietti solo alla biglietteria all'ingresso del parco, senza prevendita. Posto tenda per chi si ferma a dormire, senza luce né acqua corrente. Secondo gli organizzatori, l'edizione 2026 si è svolta in forma ridotta, con un massimo di 200 persone nell'area pubblica, perché l'autorizzazione allo spettacolo è stata negata dal comune.", free: false, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://beltanefestival.it/it" }, { label: "Programma 2026", url: "https://beltanefestival.it/it/programma/2026" }, { label: "Domande frequenti", url: "https://beltanefestival.it/it/faq" }, { label: "Pagina Facebook", url: "https://www.facebook.com/Festadibeltane/" }, { label: "Pagina Instagram", url: "https://www.instagram.com/beltane_paganfestival/" }] },
-  { id: 1, name: "Strigarium - Il Grande Sabba (XIV edizione)", start: "2026-06-12", end: "2026-06-14", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Manifestazione dedicata alle antiche tradizioni, ai culti e ai rituali, con conferenze, seminari, laboratori e concerti. Nell'area della festa ci sono il mercatino, l'area food e l'area divinazione.", free: null, price: "", camp: null, food: true, links: [{ label: "Sito ufficiale", url: "https://www.strigarium.it/" }] },
-  { id: 2, name: "Montelago Celtic Festival (XXIII edizione)", start: "2026-08-05", end: "2026-08-08", city: "Serravalle di Chienti", region: "Marche", address: "Altopiano di Colfiorito (uscita autostradale di Colfiorito)", desc: "Quattro giorni all'aperto di cultura celtica e folk: musica e balfolk, accademie, giochi celtici e Highland Games, attività outdoor e la Battaglia degli Eserciti. Mercato dell'artigianato e punti di ristoro. Biglietti esauriti per questa edizione.", free: false, price: "", camp: null, food: true, links: [{ label: "Sito ufficiale", url: "https://www.montelagocelticfestival.it/" }, { label: "Programma", url: "https://www.montelagocelticfestival.it/pages/programma" }, { label: "Biglietti", url: "https://www.montelagocelticfestival.it/pages/biglietti" }, { label: "Come arrivare", url: "https://www.montelagocelticfestival.it/pages/come-arrivare" }, { label: "Pagina Facebook", url: "https://www.facebook.com/montelagocelticfestival" }] },
-  { id: 3, name: "Ragnarök Viking Fest", start: "2026-09-25", end: "2026-09-27", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Festival vichingo internazionale: rievocazioni storiche e battaglie, musica dal Nordic folk al dark folk, conferenze su mitologia e vita quotidiana norrena, mercato tematico e area food con birra artigianale.", free: null, price: "", camp: null, food: true, links: [{ label: "Pagina Facebook", url: "https://www.facebook.com/RAGNAROKVIKINGFEST" }, { label: "Scheda su Brescia Eventi", url: "https://bresciaeventi.com/evento/ragnarok-viking-fest-festa-celtica/" }] }
+  { id: 1, name: "Strigarium - Il Grande Sabba (XIV edizione)", start: "2026-06-12", end: "2026-06-14", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Manifestazione dedicata alle antiche tradizioni, ai culti e ai rituali, con conferenze, seminari, laboratori e concerti. Nell'area della festa ci sono il mercatino, l'area food e l'area divinazione.", free: null, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://www.strigarium.it/" }] },
+  { id: 2, name: "Montelago Celtic Festival (XXIII edizione)", start: "2026-08-05", end: "2026-08-08", city: "Serravalle di Chienti", region: "Marche", address: "Altopiano di Colfiorito (uscita autostradale di Colfiorito)", desc: "Quattro giorni all'aperto di cultura celtica e folk: musica e balfolk, accademie, giochi celtici e Highland Games, attività outdoor e la Battaglia degli Eserciti. Mercato dell'artigianato e punti di ristoro. Biglietti esauriti per questa edizione.", free: false, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://www.montelagocelticfestival.it/" }, { label: "Programma", url: "https://www.montelagocelticfestival.it/pages/programma" }, { label: "Biglietti", url: "https://www.montelagocelticfestival.it/pages/biglietti" }, { label: "Come arrivare", url: "https://www.montelagocelticfestival.it/pages/come-arrivare" }, { label: "Pagina Facebook", url: "https://www.facebook.com/montelagocelticfestival" }] },
+  { id: 3, name: "Ragnarök Viking Fest", start: "2026-09-25", end: "2026-09-27", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Festival vichingo internazionale: rievocazioni storiche e battaglie, musica dal Nordic folk al dark folk, conferenze su mitologia e vita quotidiana norrena, mercato tematico e area food con birra artigianale.", free: null, price: "", camp: true, food: true, links: [{ label: "Pagina Facebook", url: "https://www.facebook.com/RAGNAROKVIKINGFEST" }, { label: "Scheda su Brescia Eventi", url: "https://bresciaeventi.com/evento/ragnarok-viking-fest-festa-celtica/" }] },
+  { id: 5, name: "Yule - Il soffio dell'inverno", start: "2026-12-19", end: "2026-12-20", city: "Samolaco", region: "Lombardia", address: "Agriturismo Summus Lacus, Samolaco (SO)", desc: "Due giorni per festeggiare l'inverno e la sua energia in fratellanza e condivisione: mercatino artigianale, campi storici con didattiche sulla vita degli antichi Celti, musica e tamburi, workshop e racconti intorno al fuoco. Il bar, con ippocrasso caldo, birra, vino e idromele, è aperto tutto il giorno. Laboratori: informazioni e iscrizioni a neserneiem@hotmail.com o in messaggio privato sulla pagina di Yule (Instagram e Facebook). Powered by: Nuragic Viking, Annie Sentiero delle antiche madri, Damona Genos, Summus Lacus, La coppa di Kvasír. In collaborazione con: Genos Briga, Strumentopolo celtico.", programTitle: "Programma di domenica 20 dicembre (quello di sabato 19 non è stato indicato)", program: [["Dalle 10", "Apertura del piccolo mercatino artigianale. Bar aperto tutto il giorno con ippocrasso caldo, birra, vino e idromele."], ["Tutto il giorno", "Campi storici attivi con piccole didattiche sulla vita degli antichi Celti, musica, tamburi e strumenti diversi, tè e infusi caldi. Musica itinerante con il musico polivalente @axyluca."], ["11 - 12:30", "Workshop di filatura per adulti e per bambini dai 10 anni, a contributo fisso, a cura del gruppo storico Damona Genos."], ["12 - 12:30", "Possibilità di pranzo sul posto."], ["15 - 16", "Presentazione del libro “L'Ombra di Avalon” con l'autore Alex Marcello Zamparuti. Dopo la presentazione, lettura runica con lo stesso autore, a contributo fisso."], ["15:30", "Spazio esterno: workshop sui metodi primitivi di accensione del fuoco con @wild_arrow_survival, a contributo fisso e su prenotazione (si prenota con @wild_arrow_survival)."], ["16", "Racconti intorno al fuoco, a cura di Damona Genos e Genos Briga."], ["17 - 18", "Fine della manifestazione."]], free: null, price: "", camp: true, food: true, links: [{ label: "Pagina dell'evento su Facebook", url: "https://www.facebook.com/p/Yule-Il-Soffio-DellInverno-61584144504752/" }, { label: "Pagina Instagram", url: "https://www.instagram.com/yule_ilsoffiodellinverno/" }] }
 ];
 
 function pd(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
@@ -262,7 +268,7 @@ function tagsFor(e) {
   if (e.free === true) t.push('<span class="tag free">Gratuito</span>');
   else if (e.free === false) t.push('<span class="tag">' + esc(e.price || "A pagamento") + "</span>");
   if (e.camp) t.push('<span class="tag">Campeggio</span>');
-  if (e.food) t.push('<span class="tag">Food e servizi</span>');
+  if (e.food) t.push('<span class="tag">Food</span>');
   return t.join("");
 }
 
@@ -328,7 +334,7 @@ function updateBadge() {
   if (state.camp) n++;
   if (state.food) n++;
   if (state.view === "list" && (state.from || state.to || state.quick !== "all")) n++;
-  if (state.past && !NO_UPCOMING) n++;
+  if (state.past && !NO_UPCOMING && state.quick !== "everything") n++;
   var b = $("nfilters");
   b.hidden = n === 0;
   b.textContent = n;
@@ -340,6 +346,7 @@ function render() {
   var isList = state.view === "list";
   $("period-box").hidden = !isList; $("from-box").hidden = !isList; $("to-box").hidden = !isList;
   document.querySelector(".check").hidden = !isList;
+  $("f-past").checked = state.past;
   $("notice").hidden = !NO_UPCOMING;
   $("view").innerHTML = isList ? renderList() : renderMonth();
   Array.prototype.forEach.call(document.querySelectorAll("#quick .chip"), function (c) { c.setAttribute("aria-pressed", c.getAttribute("data-q") === state.quick); });
@@ -349,6 +356,8 @@ function render() {
 function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 function setQuick(q) {
   state.quick = q;
+  state.past = q === "everything" ? true : NO_UPCOMING;
+  $("f-past").checked = state.past;
   var a = "", b = "";
   if (q === "week") { a = iso(TODAY); b = iso(new Date(TODAY.getTime() + 7 * DAY)); }
   if (q === "30") { a = iso(TODAY); b = iso(new Date(TODAY.getTime() + 30 * DAY)); }
@@ -369,8 +378,13 @@ function openEvent(id, trigger) {
   h += "<dt>Luogo</dt><dd>" + esc(e.city) + " (" + esc(e.region) + ")<br>" + esc(e.address) + "</dd>";
   h += "<dt>Ingresso</dt><dd>" + esc(priceText(e)) + "</dd>";
   h += "<dt>Campeggio</dt><dd>" + (e.camp === null ? "Non indicato" : e.camp ? "Sì" : "No") + "</dd>";
-  h += "<dt>Food e servizi</dt><dd>" + (e.food === null ? "Non indicato" : e.food ? "Sì" : "No") + "</dd></dl>";
+  h += "<dt>Food</dt><dd>" + (e.food === null ? "Non indicato" : e.food ? "Sì" : "No") + "</dd></dl>";
   h += "<p>" + esc(e.desc) + "</p>";
+  if (e.program && e.program.length) {
+    h += '<h4 style="margin:18px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">' + esc(e.programTitle || "Programma") + '</h4><ul class="prog">';
+    e.program.forEach(function (r) { h += "<li><b>" + esc(r[0]) + "</b><span>" + esc(r[1]) + "</span></li>"; });
+    h += "</ul>";
+  }
   if (e.links && e.links.length) {
     h += '<h4 style="margin:18px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">Per saperne di più</h4><ul class="links">';
     e.links.forEach(function (l) {
@@ -409,7 +423,12 @@ $("v-month").addEventListener("click", function () { state.view = "month"; rende
 });
 $("f-from").addEventListener("change", function (e) { state.from = e.target.value; state.quick = "custom"; render(); });
 $("f-to").addEventListener("change", function (e) { state.to = e.target.value; state.quick = "custom"; render(); });
-$("f-past").addEventListener("change", function (e) { state.past = e.target.checked; render(); });
+$("f-past").addEventListener("change", function (e) {
+  state.past = e.target.checked;
+  if (state.past && state.quick === "all") state.quick = "everything";
+  else if (!state.past && state.quick === "everything") state.quick = "all";
+  render();
+});
 $("reset").addEventListener("click", function () {
   state.region = state.price = state.camp = state.food = ""; state.past = NO_UPCOMING;
   $("f-region").value = $("f-price").value = $("f-camp").value = $("f-food").value = ""; $("f-past").checked = NO_UPCOMING;
