@@ -433,6 +433,7 @@ function openEvent(id, trigger) {
   }
   $("sheet").innerHTML = h;
   $("overlay").hidden = false;
+  try { if (!(history.state && history.state.ev)) history.pushState({ ev: id }, ""); } catch (x) {}
   var body = $("more-body"), mbtn = $("more-btn");
   if (body.scrollHeight > body.clientHeight + 2) {
     body.classList.add("clamped");
@@ -445,10 +446,19 @@ function openEvent(id, trigger) {
   }
   $("close").focus();
 }
-function closeEvent() {
+function hideSheet() {
   $("overlay").hidden = true;
   if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
 }
+function closeEvent() {
+  // se la scheda ha aggiunto una voce alla cronologia, la si toglie con "indietro"; il popstate nasconde la scheda
+  var viaHistory = false;
+  try { if (history.state && history.state.ev) { viaHistory = true; history.back(); } } catch (x) {}
+  if (!viaHistory) hideSheet();
+}
+window.addEventListener("popstate", function () {
+  if (!$("overlay").hidden) hideSheet();
+});
 
 document.addEventListener("click", function (ev) {
   var t = ev.target;
