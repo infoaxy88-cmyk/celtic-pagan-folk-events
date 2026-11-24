@@ -1,7 +1,7 @@
 // Service worker del calendario: prima la rete (così gli aggiornamenti arrivano subito),
 // poi la copia salvata se manca la connessione.
-var CACHE = "celtic-pagan-folk-v1";
-var ASSETS = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
+var CACHE = "celtic-pagan-folk-v2";
+var ASSETS = ["./", "./index.html", "./eventi.json", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", function (e) {
   e.waitUntil(

@@ -148,6 +148,11 @@ h2.month small { font-family: var(--font-body); color: var(--muted); font-size: 
 dl.info { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 16px; margin: 16px 0; }
 dl.info dt { color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
 dl.info dd { margin: 0; overflow-wrap: anywhere; }
+.more-body { position: relative; font-size: 15px; line-height: 1.5; max-height: calc(1.5em * 10); overflow: hidden; }
+.more-body.open { max-height: none; }
+.more-body.clamped:not(.open)::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3em; background: linear-gradient(to bottom, transparent, var(--surface)); pointer-events: none; }
+.more-btn { margin-top: 8px; background: transparent; border: 1px solid var(--accent); color: var(--accent); border-radius: 99px; padding: 5px 16px; font-weight: 600; }
+.more-btn:hover { background: var(--accent-soft); }
 .prog { list-style: none; margin: 0 0 4px; padding: 0; display: grid; gap: 10px; }
 .prog li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px; }
 .prog b { color: var(--accent); font-variant-numeric: tabular-nums; }
@@ -229,18 +234,7 @@ footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
 </div>
 
 <script>
-var EVENTS = [
-  { id: 4, name: "Beltane Pagan Festival (XXVIII edizione)", start: "2026-05-29", end: "2026-05-31", city: "Masserano", region: "Piemonte", address: "Parco Arcobaleno", desc: "Festa celtica e neopagana in un parco naturale: concerti di cornamusa e tamburi fino a notte fonda, conferenze, mostra tematica e area food con menu anche vegetariano, vegano e senza glutine. Biglietti solo alla biglietteria all'ingresso del parco, senza prevendita. Posto tenda per chi si ferma a dormire, senza luce né acqua corrente. Secondo gli organizzatori, l'edizione 2026 si è svolta in forma ridotta, con un massimo di 200 persone nell'area pubblica, perché l'autorizzazione allo spettacolo è stata negata dal comune.", free: false, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://beltanefestival.it/it" }, { label: "Programma 2026", url: "https://beltanefestival.it/it/programma/2026" }, { label: "Domande frequenti", url: "https://beltanefestival.it/it/faq" }, { label: "Pagina Facebook", url: "https://www.facebook.com/Festadibeltane/" }, { label: "Pagina Instagram", url: "https://www.instagram.com/beltane_paganfestival/" }] },
-  { id: 1, name: "Strigarium - Il Grande Sabba (XIV edizione)", start: "2026-06-12", end: "2026-06-14", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Manifestazione dedicata alle antiche tradizioni, ai culti e ai rituali, con conferenze, seminari, laboratori e concerti. Nell'area della festa ci sono il mercatino, l'area food e l'area divinazione.", free: true, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://www.strigarium.it/" }] },
-  { id: 2, name: "Montelago Celtic Festival (XXIII edizione)", start: "2026-08-05", end: "2026-08-08", city: "Serravalle di Chienti", region: "Marche", address: "Altopiano di Colfiorito (uscita autostradale di Colfiorito)", desc: "Quattro giorni all'aperto di cultura celtica e folk: musica e balfolk, accademie, giochi celtici e Highland Games, attività outdoor e la Battaglia degli Eserciti. Mercato dell'artigianato e punti di ristoro. Biglietti esauriti per questa edizione.", free: false, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://www.montelagocelticfestival.it/" }, { label: "Programma", url: "https://www.montelagocelticfestival.it/pages/programma" }, { label: "Biglietti", url: "https://www.montelagocelticfestival.it/pages/biglietti" }, { label: "Come arrivare", url: "https://www.montelagocelticfestival.it/pages/come-arrivare" }, { label: "Pagina Facebook", url: "https://www.facebook.com/montelagocelticfestival" }] },
-  { id: 3, name: "Ragnarök Viking Fest", start: "2026-09-25", end: "2026-09-27", city: "Casirate d'Adda", region: "Lombardia", address: "Cascina Bosco Grosso", desc: "Festival vichingo internazionale: rievocazioni storiche e battaglie, musica dal Nordic folk al dark folk, conferenze su mitologia e vita quotidiana norrena, mercato tematico e area food con birra artigianale.", free: true, price: "", camp: true, food: true, links: [{ label: "Pagina Facebook", url: "https://www.facebook.com/RAGNAROKVIKINGFEST" }, { label: "Scheda su Brescia Eventi", url: "https://bresciaeventi.com/evento/ragnarok-viking-fest-festa-celtica/" }] },
-  { id: 5, name: "Yule - Il soffio dell'inverno", start: "2026-12-19", end: "2026-12-20", city: "Samolaco", region: "Lombardia", address: "Agriturismo Summus Lacus, Samolaco (SO)", desc: "Due giorni per festeggiare l'inverno e la sua energia in fratellanza e condivisione: mercatino artigianale, campi storici con didattiche sulla vita degli antichi Celti, musica e tamburi, workshop e racconti intorno al fuoco. Il bar, con ippocrasso caldo, birra, vino e idromele, è aperto tutto il giorno. Laboratori: informazioni e iscrizioni a neserneiem@hotmail.com o in messaggio privato sulla pagina di Yule (Instagram e Facebook). Powered by: Nuragic Viking, Annie Sentiero delle antiche madri, Damona Genos, Summus Lacus, La coppa di Kvasír. In collaborazione con: Genos Briga, Strumentopolo celtico.", days: [{"title": "Sabato 19 dicembre", "items": [["Dalle 10", "Apertura del piccolo mercatino artigianale. Bar aperto tutto il giorno con ippocrasso caldo, birra, vino e idromele."], ["10:30 - 11:30", "Laboratorio per bambini e adulti (dai 3 anni): si crea una sfera trasparente di Yule con erbe, spezie e buoni intenti portafortuna da appendere all'albero di Yule. Durante il laboratorio si racconta la storia delle sfere magiche di Yule. Su prenotazione, a contributo fisso."], ["Tutto il giorno", "Campi storici attivi con piccole didattiche per osservare la vita degli antichi Celti, musica, tamburi e strumenti diversi. Si può ballare, suonare e cantare insieme, con tè e infusi caldi, ippocrasso caldo e idromele. Musica itinerante con il musico polivalente @axyluca."], ["12 - 14", "Apertura dell'agriturismo per il pranzo su prenotazione, con birra e bibite."], ["14 - 15:30", "Laboratorio: crea la tua candela di Yule, di cera d'api, senza fusione. Con racconto dedicato alla Luce che ritorna. Adatto a tutti i bambini e agli adulti. A cura di Damona Genos."], ["15:30 - 16:30", "Conferenza «I processi di stregoneria in Valchiavenna e Val San Giacomo», a cura di @tana_storica_della_stregoneria."], ["16:45 - 17:45", "Conferenza «Da Dea a Strega», a cura di Francesca V.F. (su Facebook: Francesca Von Franzestain)."], ["18 - 19", "Conferenza: un viaggio alla scoperta del fuoco nella cultura celtica, a cura di Alessandro di @wild_arrow_survival."], ["16", "Racconti intorno al fuoco, a cura di Genos Briga e Damona Genos, per grandi e piccini."], ["19:30", "Cena di Yule, prenotazione obbligatoria."], ["22 - 22:30", "Accensione del fuoco degli antichi, con spettacolo per tutti: intorno al fuoco si ritrova un'usanza antica che porta in contatto con gli antenati (con spettacolo e clan)."], ["23 - 23:30", "Cerchio di tamburi e jam session con @nuragic_viking e @beligenna_fili_ed_erbe: porta il tuo tamburo o strumento e suona con noi intorno al fuoco. Se non vuoi suonare, preparati a danzare con noi in nome di Yule."]]}, {"title": "Domenica 20 dicembre", "items": [["Dalle 10", "Apertura del piccolo mercatino artigianale. Bar aperto tutto il giorno con ippocrasso caldo, birra, vino e idromele."], ["Tutto il giorno", "Campi storici attivi con piccole didattiche sulla vita degli antichi Celti, musica, tamburi e strumenti diversi, tè e infusi caldi. Musica itinerante con il musico polivalente @axyluca."], ["11 - 12:30", "Workshop di filatura per adulti e per bambini dai 10 anni, a contributo fisso, a cura del gruppo storico Damona Genos."], ["12 - 12:30", "Possibilità di pranzo sul posto."], ["15 - 16", "Presentazione del libro “L'Ombra di Avalon” con l'autore Alex Marcello Zamparuti. Dopo la presentazione, lettura runica con lo stesso autore, a contributo fisso."], ["15:30", "Spazio esterno: workshop sui metodi primitivi di accensione del fuoco con @wild_arrow_survival, a contributo fisso e su prenotazione (si prenota con @wild_arrow_survival)."], ["16", "Racconti intorno al fuoco, a cura di Damona Genos e Genos Briga."], ["17 - 18", "Fine della manifestazione."]]}], free: true, price: "", camp: true, food: true, links: [{ label: "Evento su Facebook", url: "https://www.facebook.com/events/3426712967498847/" }, { label: "Pagina Facebook di Yule", url: "https://www.facebook.com/p/Yule-Il-Soffio-DellInverno-61584144504752/" }, { label: "Pagina Instagram", url: "https://www.instagram.com/yule_ilsoffiodellinverno/" }] },
-  { id: 6, name: "Axa Briga 2026", start: "2026-09-04", end: "2026-09-06", city: "Settimo Rottaro", region: "Piemonte", address: "Settimo Rottaro (TO)", desc: "Edizione 2026 di Axa Briga a Settimo Rottaro, in provincia di Torino. Il sito dell'evento non riporta descrizione né programma: per i dettagli si rimanda alla pagina Facebook o all'organizzazione (info@axabriga.it).", free: true, price: "", camp: true, food: true, links: [{ label: "Sito ufficiale", url: "https://www.axabriga.it/" }, { label: "Pagina Facebook di Axa Briga", url: "https://www.facebook.com/axa.briga/" }, { label: "Pagina Facebook di Pobal ap Vaud", url: "https://www.facebook.com/Pobal-ap-Vaud-210588245627458/" }] },
-  { id: 7, name: "Uppsala - Era vichinga", start: "2026-03-28", end: "2026-03-30", city: "Piangaiano", region: "Lombardia", address: "Via Tironega 48, Piangaiano (BG)", desc: "Un'esperienza immersiva in cui chi partecipa diventa parte integrante dell'evento, nello spirito di unione, amicizia e fratellanza. Tre giorni in una location suggestiva con campo storico e dimostrazioni di vita da campo, conferenze, workshop, musica, giochi e attività per grandi e piccini. Area food con proposte per tutti i palati, birra artigianale della Brasseria della Palude, idromele e ippocrasso dell'Alchimista.", free: true, price: "", camp: true, food: true, links: [{ label: "Evento su Facebook", url: "https://www.facebook.com/events/via-tironega-48-24060-piangaiano-bg-italia/uppsala-era-vichinga/1672931210271327/" }] },
-  { id: 8, name: "Valhalla Calling Europe Tour - Týr e Twilight Force", start: "2026-12-13", end: "2026-12-13", city: "Milano", region: "Lombardia", address: "Legend Club, Viale Enrico Fermi 98", desc: "Tappa milanese del Valhalla Calling Europe Tour, concerto di folk e power metal con Týr e Twilight Force. Biglietti in vendita su Dice. Orari, prezzi e programma completo non sono indicati qui: consulta la pagina dei biglietti.", free: false, price: "", camp: null, food: null, links: [{ label: "Biglietti su Dice", url: "https://dice.fm/event/8eqavv-valhalla-calling-europe-tour-tr-twilight-force-13th-dec-legend-club-milano-tickets?lng=it" }] },
-  { id: 9, name: "Eivør + Rabbitology", start: "2027-03-14", end: "2027-03-14", city: "Trezzo sull'Adda", region: "Lombardia", address: "Live Club", desc: "Concerto della cantautrice faroese Eivør, che unisce folk nordico, composizione cinematografica e produzione moderna. Apre la serata Rabbitology. È l'unica data italiana del suo nuovo tour europeo. Orari e prezzi non sono indicati qui: consulta la pagina dei biglietti.", free: false, price: "", camp: null, food: null, links: [{ label: "Biglietti su Vivaticket", url: "https://mc2live.vivaticket.it/it/event/eivor/300860" }] },
-  { id: 10, name: "Kalandra + Finnegan Tui", start: "2027-03-24", end: "2027-03-24", city: "Milano", region: "Lombardia", address: "Legend Club, Viale Enrico Fermi 98", desc: "Concerto della band norvegese Kalandra, con Finnegan Tui. Apertura porte alle 19:00. Biglietti in vendita su Dice.", free: false, price: "da € 34,50", camp: null, food: null, links: [{ label: "Biglietti su Dice", url: "https://dice.fm/event/g587d6-kalandra-24th-mar-legend-club-milano-tickets?lng=it" }] }
-];
+function start(EVENTS) {
 
 function pd(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
 function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -287,7 +281,7 @@ function durText(e) {
   var n = daysBetween(e.rs, e.re) + 1;
   return n === 1 ? "1 giorno" : n + " giorni";
 }
-function priceText(e) { if (e.free === null) return "Non indicato"; return e.free ? "Ingresso gratuito" : "A pagamento" + (e.price ? " (" + e.price + ")" : ""); }
+function priceText(e) { if (e.free === null) return "Non indicato"; return e.free ? "Ingresso gratuito" : "A pagamento"; }
 
 function mapLink(e, label) {
   var a = e.address.replace(/\s*\([^)]*\)/g, "");
@@ -307,7 +301,7 @@ function tagsFor(e) {
   else if (days >= 0 && days <= 14) t.push('<span class="tag soon">' + (days === 0 ? "Oggi" : days === 1 ? "Domani" : "Tra " + days + " giorni") + "</span>");
   else if (days < 0) t.push('<span class="tag soon">In corso</span>');
   if (e.free === true) t.push('<span class="tag free">Gratuito</span>');
-  else if (e.free === false) t.push('<span class="tag">' + esc(e.price || "A pagamento") + "</span>");
+  else if (e.free === false) t.push('<span class="tag">A pagamento</span>');
   if (e.camp) t.push('<span class="tag">Campeggio</span>');
   if (e.food) t.push('<span class="tag">Food</span>');
   return t.join("");
@@ -420,7 +414,7 @@ function openEvent(id, trigger) {
   h += "<dt>Ingresso</dt><dd>" + esc(priceText(e)) + "</dd>";
   h += "<dt>Campeggio</dt><dd>" + (e.camp === null ? "Non indicato" : e.camp ? "Sì" : "No") + "</dd>";
   h += "<dt>Food</dt><dd>" + (e.food === null ? "Non indicato" : e.food ? "Sì" : "No") + "</dd></dl>";
-  h += "<p>" + esc(e.desc) + "</p>";
+  h += '<div class="more-body" id="more-body"><p style="margin:0">' + esc(e.desc) + "</p>";
   if (e.days && e.days.length) {
     e.days.forEach(function (d) {
       h += '<h4 style="margin:18px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">Programma di ' + esc(d.title.toLowerCase()) + '</h4><ul class="prog">';
@@ -428,6 +422,7 @@ function openEvent(id, trigger) {
       h += "</ul>";
     });
   }
+  h += '</div><button type="button" class="more-btn" id="more-btn" aria-expanded="false" aria-controls="more-body" hidden>Mostra più</button>';
   if (e.links && e.links.length) {
     h += '<h4 style="margin:18px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">Per saperne di più</h4><ul class="links">';
     e.links.forEach(function (l) {
@@ -438,6 +433,16 @@ function openEvent(id, trigger) {
   }
   $("sheet").innerHTML = h;
   $("overlay").hidden = false;
+  var body = $("more-body"), mbtn = $("more-btn");
+  if (body.scrollHeight > body.clientHeight + 2) {
+    body.classList.add("clamped");
+    mbtn.hidden = false;
+    mbtn.addEventListener("click", function () {
+      var open = body.classList.toggle("open");
+      mbtn.textContent = open ? "Mostra meno" : "Mostra più";
+      mbtn.setAttribute("aria-expanded", open);
+    });
+  }
   $("close").focus();
 }
 function closeEvent() {
@@ -488,6 +493,14 @@ $("reset").addEventListener("click", function () {
   if (window.matchMedia("(min-width: 721px)").matches) $("filters").open = true;
   render();
 })();
+}
+
+fetch("eventi.json", { cache: "no-cache" })
+  .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(start)
+  .catch(function () {
+    document.getElementById("view").innerHTML = '<div class="empty">Non riesco a caricare gli eventi. Controlla la connessione e riprova.</div>';
+  });
 </script>
 <script>
 (function () {

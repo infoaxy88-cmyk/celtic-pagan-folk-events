@@ -1,0 +1,9 @@
+{
+  "_nota": "Lista dei siti controllati. Per aggiungerne uno, copia un blocco e cambia id (senza spazi), nome e url. 'ignora' è facoltativo: elenco di espressioni regolari per le righe da non considerare (contatori, banner cookie). Con 'segnala_ogni_modifica': true ricevi una segnalazione per qualsiasi cambiamento, non solo quando compaiono date o edizioni.",
+  "siti": [
+    { "id": "beltane", "nome": "Beltane Pagan Festival", "url": "https://beltanefestival.it/it" },
+    { "id": "montelago", "nome": "Montelago Celtic Festival", "url": "https://www.montelagocelticfestival.it/" },
+    { "id": "strigarium", "nome": "Strigarium", "url": "https://www.strigarium.it/" },
+    { "id": "axabriga", "nome": "Axa Briga", "url": "https://www.axabriga.it/" }
+  ]
+}
