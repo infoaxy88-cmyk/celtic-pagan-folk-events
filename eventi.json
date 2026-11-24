@@ -342,5 +342,351 @@
         "url": "https://dice.fm/event/g587d6-kalandra-24th-mar-legend-club-milano-tickets?lng=it"
       }
     ]
+  },
+  {
+    "id": 11,
+    "name": "Insubria Festival - Festival celtico dell'Insubria del Ticino",
+    "start": "2026-04-24",
+    "end": "2026-04-26",
+    "city": "Marcallo con Casone",
+    "region": "Lombardia",
+    "address": "Parco di Villa Ghiotti (Parco Comunale Ghiotti)",
+    "desc": "Festival celtico dell'Insubria del Ticino, organizzato dall'Associazione Culturale Terra Insubre: musica celtica, rievocazioni storiche, laboratori, conferenze, parata per le vie del paese e concerti sotto una tensostruttura coperta, anche con maltempo. Ingresso libero a tutti gli eventi.",
+    "free": true,
+    "camp": true,
+    "food": true,
+    "days": [
+      {
+        "title": "Venerdì 24 aprile",
+        "items": [
+          [
+            "18:30",
+            "Catamantalon, «Equilibrio», laboratorio esperienziale (Cromlech)."
+          ],
+          [
+            "21:00",
+            "Aexylium, esibizione (tensostruttura)."
+          ],
+          [
+            "22:30",
+            "Corte di Lunas, esibizione (tensostruttura)."
+          ]
+        ]
+      },
+      {
+        "title": "Sabato 25 aprile",
+        "items": [
+          [
+            "11:00",
+            "Laboratorio di divinazione con gli Ogham (campo storico)."
+          ],
+          [
+            "11:00",
+            "Conferenza sul Parco del Ticino con Ismaele Rognoni, presidente del parco (Sala Cattaneo)."
+          ],
+          [
+            "11:15",
+            "«Gesti di antica memoria», laboratorio per famiglie (campo storico)."
+          ],
+          [
+            "14:00",
+            "Parata «La Calata degli Insubri» per le vie del paese."
+          ],
+          [
+            "15:00",
+            "«L'equilibrio della spada», conferenza interattiva (campo storico)."
+          ],
+          [
+            "16:00",
+            "«La danza delle origini», workshop di teatrodanza (campo storico)."
+          ],
+          [
+            "18:00",
+            "Jason O'Rourke, esibizione (tensostruttura)."
+          ],
+          [
+            "19:30",
+            "«Accendiamo la vita», fuochi di Beloptenia (campo storico)."
+          ],
+          [
+            "21:00",
+            "Andrea Rock & The Rebel Poets, esibizione (tensostruttura)."
+          ],
+          [
+            "23:00",
+            "Uncle Bard & The Dirty Bastards, esibizione (tensostruttura)."
+          ]
+        ]
+      },
+      {
+        "title": "Domenica 26 aprile",
+        "items": [
+          [
+            "11:00",
+            "Guida all'Europa megalitica con Andrea Anselmo (Sala Cattaneo)."
+          ],
+          [
+            "11:00",
+            "«Non solo piante», laboratorio sui talismani druidici (campo storico)."
+          ],
+          [
+            "11:15",
+            "«Gesti di antica memoria», laboratorio per famiglie (campo storico)."
+          ],
+          [
+            "12:00",
+            "Piante selvatiche in alimentazione e medicina con Gabriele Peroni (Sala Cattaneo)."
+          ],
+          [
+            "14:30",
+            "«Belli davanti agli dei», vestizione e canto propiziatorio (campo storico)."
+          ],
+          [
+            "15:00",
+            "«Suonino i corni di guerra», la battaglia del Ticino (campo storico)."
+          ],
+          [
+            "17:00",
+            "«Il giro di una danza», palo di maggio (campo storico)."
+          ],
+          [
+            "18:30",
+            "Bandrui, danza contemporanea e canto (tensostruttura)."
+          ],
+          [
+            "19:00",
+            "Scuola di danze irlandesi Celtic Roses & Pink Stars (tensostruttura)."
+          ],
+          [
+            "20:00",
+            "Gruppo di danza Vilia (tensostruttura)."
+          ],
+          [
+            "21:30",
+            "Valkanorr, esibizione (tensostruttura)."
+          ]
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Sito ufficiale",
+        "url": "https://www.insubriafestival.org/"
+      },
+      {
+        "label": "Programma",
+        "url": "https://www.insubriafestival.org/Programma.aspx"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/insubriafestival"
+      }
+    ],
+    "price": ""
+  },
+  {
+    "id": 12,
+    "name": "In Nomine Matris - L'Albero della Vita",
+    "start": "2026-06-06",
+    "end": "2026-06-07",
+    "city": "Capo di Ponte",
+    "region": "Lombardia",
+    "address": "Pitoti Park, Capo di Ponte (BS)",
+    "desc": "Festival sulle tradizioni dell'Europa antica, tra storia, magia, folklore e natura, nel Pitoti Park della Valcamonica. Due giorni di concerti, conferenze, workshop, campi storici, dimostrazioni storiche e mercato artigianale, con atmosfere nordiche e richiami al mondo fantasy. Sul palco: Valkenragh, Muse del Diavolo, Ruinfang, Ljùrfràin e Carantos; partecipano Fairy Circle e la Compagnia Arcieri del Castello di Breno. Area food & beverage con food truck, idromele, ippocrasso e birre artigianali. Orari dettagliati non pubblicati.",
+    "free": true,
+    "camp": true,
+    "food": true,
+    "links": [
+      {
+        "label": "Scheda su Turismo Valle Camonica",
+        "url": "https://www.turismovallecamonica.it/eventi/in-nomine-matris/"
+      },
+      {
+        "label": "Pagina Facebook",
+        "url": "https://www.facebook.com/InNomineMatrisValcamonica/"
+      },
+      {
+        "label": "Articolo su BsNews",
+        "url": "https://bsnews.it/2026/06/05/capo-di-ponte-il-6-7-giugno-musica-e-spiritualita-nordica-con-in-nomine-matris-lalbero-della-vita/"
+      }
+    ],
+    "price": ""
+  },
+  {
+    "id": 13,
+    "name": "Lughnasad - L'incontro delle tribù",
+    "start": "2026-07-24",
+    "end": "2026-07-26",
+    "city": "Golasecca",
+    "region": "Lombardia",
+    "address": "Campo di Gola-Lug, Viale Europa 1 c, Golasecca (VA)",
+    "desc": "Festival musicale di influenza pagan folk nella cornice di Golasecca, sul patrimonio proto-celtico del luogo: tre giorni di musica, danza, rievocazione storica, workshop e conferenze, con mercatino artigianale, birre artigianali irlandesi e celtiche, sidro, idromele e degustazioni di whiskey, cucina alla griglia e specialità irlandesi a cura della Pro Loco. Ingresso gratuito; alcune attività (laboratori, visita al museo di Sesto Calende) sono a pagamento o a offerta. Nelle vicinanze si trova il Camping Il Gabbiano (Viale Europa 81, circa 4 minuti in auto), a pagamento, ma il festival non prevede un campeggio proprio.",
+    "free": true,
+    "camp": false,
+    "food": true,
+    "days": [
+      {
+        "title": "Venerdì 24 luglio",
+        "items": [
+          [
+            "17:00",
+            "Apertura mercatino artigianale e food (Pro Loco)."
+          ],
+          [
+            "17:00 - 19:00",
+            "Aperitivo del Druido e Giochi del Druido (Locanda del Druido Assetato)."
+          ],
+          [
+            "21:30",
+            "Dolmen Naquane."
+          ],
+          [
+            "22:30",
+            "Guess Am."
+          ]
+        ]
+      },
+      {
+        "title": "Sabato 25 luglio",
+        "items": [
+          [
+            "11:00",
+            "Apertura mercatino artigianale e food."
+          ],
+          [
+            "11:00 - 12:00",
+            "Visita guidata al Museo di Golasecca (gratuita)."
+          ],
+          [
+            "11:00 - 20:00",
+            "Attività dei gruppi di rievocazione nei campi storici (Clan Reithe, Clan dell'Unicorno, Teuta Urseca, Cantos Alisianon, Clan dell'Artiglio, Sagitta Barbarica-Biturigi)."
+          ],
+          [
+            "11:00",
+            "Laboratorio di intaglio del legno (Intaglio Scultura Caselette)."
+          ],
+          [
+            "15:30",
+            "Stage di danze folk nordeuropee e irlandesi (Gens d'Ys)."
+          ],
+          [
+            "16:00 - 19:00",
+            "Giochi del Druido. Visita al Museo di Sesto Calende solo su prenotazione, a offerta libera."
+          ],
+          [
+            "16:30",
+            "Conferenza al campo del Clan dell'Unicorno sul mondo antico e la rievocazione storica."
+          ],
+          [
+            "17:00 - 19:00",
+            "Aperitivo del Druido."
+          ],
+          [
+            "17:30",
+            "«Sirene, anguane e altri esseri perturbanti», conferenza di Paolo Azzone."
+          ],
+          [
+            "18:30",
+            "Stage di Ceili Dance irlandesi, 1 ora (Gens d'Ys)."
+          ],
+          [
+            "20:00",
+            "«Ode alla Madre Terra», rito dei gruppi di rievocazione."
+          ],
+          [
+            "21:15",
+            "Gens d'Ys, spettacolo di danza irlandese."
+          ],
+          [
+            "22:30",
+            "Boira Fusca."
+          ]
+        ]
+      },
+      {
+        "title": "Domenica 26 luglio",
+        "items": [
+          [
+            "10:30 - 12:30",
+            "Visita guidata al Museo di Sesto Calende (su prenotazione, a offerta libera)."
+          ],
+          [
+            "11:00",
+            "Apertura mercatino artigianale e food."
+          ],
+          [
+            "11:00 - 12:00",
+            "Visita guidata al Museo di Golasecca (gratuita)."
+          ],
+          [
+            "11:00 - 19:00",
+            "Attività dei gruppi di rievocazione nei campi storici."
+          ],
+          [
+            "11:00",
+            "Laboratorio di intaglio del legno (Intaglio Scultura Caselette)."
+          ],
+          [
+            "11:30",
+            "Rito all'area archeologica del Monsorino: «Il viaggio verso l'altro mondo del Principe Guerriero e della Sacerdotessa del Tripode» (gratuito)."
+          ],
+          [
+            "14:00",
+            "Castigamatt, musica itinerante nel pomeriggio."
+          ],
+          [
+            "16:00",
+            "Gare di Forza Celtica a Coppie (10 € a coppia, iscrizione sul posto, premi alle prime tre coppie)."
+          ],
+          [
+            "16:00 - 17:00",
+            "Stage di danze folk nordeuropee e irlandesi (Gens d'Ys)."
+          ],
+          [
+            "16:00 - 19:00",
+            "Giochi del Druido."
+          ],
+          [
+            "17:00 - 18:00",
+            "Stage di Ceili Dance irlandesi (Gens d'Ys)."
+          ],
+          [
+            "17:00 - 19:00",
+            "Aperitivo del Druido."
+          ],
+          [
+            "19:00",
+            "Castigamatt."
+          ],
+          [
+            "20:30",
+            "Eternal Silence."
+          ]
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Sito ufficiale",
+        "url": "https://www.lughnasad.it/"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/lughnasadfestival"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/lughnasad.fest/"
+      },
+      {
+        "label": "Regolamento gare di forza celtica (PDF)",
+        "url": "https://www.lughnasad.it/wp-content/uploads/2026/07/REGOLAMENTO-GARE-DI-FORZA-CELTICA-2026-3.pdf"
+      },
+      {
+        "label": "Camping Il Gabbiano",
+        "url": "https://campingilgabbiano.com/"
+      }
+    ],
+    "price": ""
   }
 ]

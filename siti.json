@@ -4,6 +4,8 @@
     { "id": "beltane", "nome": "Beltane Pagan Festival", "url": "https://beltanefestival.it/it" },
     { "id": "montelago", "nome": "Montelago Celtic Festival", "url": "https://www.montelagocelticfestival.it/" },
     { "id": "strigarium", "nome": "Strigarium", "url": "https://www.strigarium.it/" },
-    { "id": "axabriga", "nome": "Axa Briga", "url": "https://www.axabriga.it/" }
+    { "id": "axabriga", "nome": "Axa Briga", "url": "https://www.axabriga.it/" },
+    { "id": "lughnasad", "nome": "Lughnasad Festival", "url": "https://www.lughnasad.it/" },
+    { "id": "insubria", "nome": "Insubria Festival", "url": "https://www.insubriafestival.org/" }
   ]
 }
