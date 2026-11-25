@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Controlla che eventi.json sia scritto bene. Esce con errore se trova problemi."""
+import re
 import json
 import os
 import sys
@@ -58,6 +59,8 @@ def main():
                 data(e["newStart"]), data(e["newEnd"])
             except (KeyError, ValueError, TypeError):
                 errori.append("%s: un evento rinviato richiede 'newStart' e 'newEnd' (AAAA-MM-GG)" % nome)
+        if "startTime" in e and not re.fullmatch(r"([01]\d|2[0-3]):[0-5]\d", str(e["startTime"])):
+            errori.append("%s: 'startTime' deve essere un orario nel formato HH:MM (es. 18:30)" % nome)
         for link in e.get("links", []):
             if not (isinstance(link, dict) and str(link.get("url", "")).startswith(("http://", "https://"))
                     and link.get("label")):
