@@ -233,7 +233,8 @@
         "label": "Pagina Instagram",
         "url": "https://www.instagram.com/yule_ilsoffiodellinverno/"
       }
-    ]
+    ],
+    "startTime": "10:00"
   },
   {
     "id": 6,
@@ -341,7 +342,9 @@
         "label": "Biglietti su Dice",
         "url": "https://dice.fm/event/g587d6-kalandra-24th-mar-legend-club-milano-tickets?lng=it"
       }
-    ]
+    ],
+    "startTime": "19:00",
+    "timeNote": "apertura porte"
   },
   {
     "id": 11,
@@ -482,7 +485,8 @@
         "url": "https://www.facebook.com/insubriafestival"
       }
     ],
-    "price": ""
+    "price": "",
+    "startTime": "18:30"
   },
   {
     "id": 12,
@@ -687,6 +691,7 @@
         "url": "https://campingilgabbiano.com/"
       }
     ],
-    "price": ""
+    "price": "",
+    "startTime": "17:00"
   }
 ]

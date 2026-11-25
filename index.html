@@ -408,7 +408,8 @@ function openEvent(id, trigger) {
   var h = '<button type="button" class="close" id="close">Chiudi</button><h3 id="dlg-title">' + esc(e.name) + '</h3><div class="tags" style="margin-top:8px">' + tagsFor(e) + "</div>";
   if (e.status === "annullato") h += '<div class="banner annullato">Evento annullato. ' + esc(e.note || "") + "</div>";
   if (e.status === "rinviato") h += '<div class="banner rinviato">Evento rinviato. ' + esc(e.note || "") + " Nuova data: " + esc(dateText(e.ns, e.ne)) + ".</div>";
-  h += '<dl class="info"><dt>Data</dt><dd>' + (e.status === "rinviato" ? "<s>" + esc(dateText(e.s, e.e)) + "</s><br>" + esc(dateText(e.ns, e.ne)) : esc(dateText(e.s, e.e))) + "</dd>";
+  var ora = e.startTime ? ", ore " + esc(e.startTime) + (e.timeNote ? " (" + esc(e.timeNote) + ")" : "") : "";
+  h += '<dl class="info"><dt>Data</dt><dd>' + (e.status === "rinviato" ? "<s>" + esc(dateText(e.s, e.e)) + "</s><br>" + esc(dateText(e.ns, e.ne)) + ora : esc(dateText(e.s, e.e)) + ora) + "</dd>";
   h += "<dt>Durata</dt><dd>" + esc(durText(e)) + "</dd>";
   h += "<dt>Luogo</dt><dd>" + esc(e.city) + " (" + esc(e.region) + ")<br>" + esc(e.address) + "<br>" + mapLink(e, "Apri su Google Maps") + "</dd>";
   h += "<dt>Ingresso</dt><dd>" + esc(priceText(e)) + "</dd>";

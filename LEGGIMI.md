@@ -53,6 +53,7 @@ Apri `eventi.json` su GitHub, premi la matita (Edit), aggiungi un blocco in fond
 - **links:** uno o più link, ognuno con testo e indirizzo che inizia con `https://`.
 - **Programma a giorni (facoltativo):** `"days": [ { "title": "Sabato 19 dicembre", "items": [ ["Dalle 10", "Apertura del mercatino."] ] } ]`. Vedi l'evento Yule.
 - **Evento annullato:** aggiungi `"status": "annullato"` e, se vuoi, `"note": "Motivo."`.
+- **Orario di inizio:** aggiungi `"startTime": "18:30"` (formato HH:MM, orario del primo giorno). Facoltativo: `"timeNote": "apertura porte"` per precisare. Se manca, la scheda non mostra l'orario.
 - **Evento rinviato:** aggiungi `"status": "rinviato"`, `"newStart"`, `"newEnd"` e `"note"`.
 
 Quando salvi, parte la verifica automatica di `eventi.json`. Se hai dimenticato una virgola o un campo, GitHub ti manda una email che dice cosa correggere (e la scheda Actions mostra una croce rossa).
